@@ -1,0 +1,19 @@
+name: Static checks
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  static-checks:
+    name: 'Static checks'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: Scony/godot-gdscript-toolkit@master
+      with:
+        version: "4.2"
+    - run: gdformat --check src scenes
+    - run: gdlint src scenes
