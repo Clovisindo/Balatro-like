@@ -12,7 +12,16 @@ config_version=5
 
 config/name="Balatro like"
 config/features=PackedStringArray("4.2", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://Assets/sprites/icon.svg"
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "yellow",
+"res://data/": "blue",
+"res://scenes/": "green",
+"res://src/": "red"
+}
 
 [rendering]
 
