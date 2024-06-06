@@ -3,6 +3,7 @@ extends Button
 var following_mouse: bool = false
 
 var tween_hover: Tween
+var tween_return_hand: Tween
 
 
 func _process(delta: float) -> void:
@@ -11,7 +12,6 @@ func _process(delta: float) -> void:
 
 func _on_gui_input(event:InputEvent):
 	handle_mouse_click(event)
-
 	# Don't compute rotation when moving the card
 	if following_mouse: return
 	if not event is InputEventMouseMotion: return
@@ -31,6 +31,14 @@ func handle_mouse_click(event: InputEvent) -> void:
 	else:
 		# drop card
 		following_mouse = false
+		on_return_hand()
+
+
+func on_return_hand():
+	if tween_return_hand and tween_return_hand.is_running():
+		tween_return_hand.kill()
+	tween_return_hand = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_return_hand.tween_property(self,"position",Vector2.ZERO, 0.5)
 
 
 func _on_mouse_exited():

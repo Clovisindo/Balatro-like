@@ -1,15 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://dq7jyexudk5vk"]
+[gd_scene load_steps=5 format=3 uid="uid://dq7jyexudk5vk"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_w0eo1"]
 [ext_resource type="PackedScene" uid="uid://d315lqvdadrat" path="res://scenes/card/card.tscn" id="2_hva06"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b67eh"]
+bg_color = Color(0.0117647, 0.196078, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ftmq"]
+bg_color = Color(0, 0, 0.27451, 1)
+
+[node name="Main" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_b67eh")
 script = ExtResource("1_w0eo1")
 
-[node name="Card" parent="." instance=ExtResource("2_hva06")]
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.283
+anchor_right = 0.001
+anchor_bottom = 0.283
+offset_left = 1.5
+offset_top = 0.115982
+offset_right = 1149.35
+offset_bottom = 281.116
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ftmq")
 
-[node name="Card2" parent="." instance=ExtResource("2_hva06")]
-offset_left = 465.0
-offset_top = 135.0
-offset_right = 658.0
-offset_bottom = 394.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 131
+alignment = 1
+
+[node name="Card" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
+
+[node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
