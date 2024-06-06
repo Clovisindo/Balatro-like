@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dq7jyexudk5vk"]
+[gd_scene load_steps=3 format=3 uid="uid://dq7jyexudk5vk"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_w0eo1"]
+[ext_resource type="PackedScene" uid="uid://d315lqvdadrat" path="res://scenes/card/card.tscn" id="2_hva06"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w0eo1")
+
+[node name="Card" parent="." instance=ExtResource("2_hva06")]
+
+[node name="Card2" parent="." instance=ExtResource("2_hva06")]
+offset_left = 465.0
+offset_top = 135.0
+offset_right = 658.0
+offset_bottom = 394.0
