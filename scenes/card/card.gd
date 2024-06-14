@@ -6,7 +6,7 @@ var tween_hover: Tween
 var tween_return_hand: Tween
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	follow_mouse()
 
 
