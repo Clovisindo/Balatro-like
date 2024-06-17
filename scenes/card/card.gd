@@ -1,4 +1,7 @@
+class_name Card
+
 extends Button
+
 
 var following_mouse: bool = false
 
@@ -37,7 +40,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 	else:
 		# drop card
 		following_mouse = false
-		on_return_hand()
+		# on_return_hand()
 
 
 func on_return_hand():
