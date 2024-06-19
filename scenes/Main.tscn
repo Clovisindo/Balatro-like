@@ -22,37 +22,63 @@ script = ExtResource("1_w0eo1")
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.283
-anchor_right = 0.001
-anchor_bottom = 0.283
 offset_left = 1.5
-offset_top = 0.115982
-offset_right = 1149.35
-offset_bottom = 281.116
+offset_top = 183.5
+offset_right = 1150.5
+offset_bottom = 464.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ftmq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 131
-alignment = 1
+theme_override_constants/separation = 190
 script = ExtResource("2_mpdri")
 
-[node name="Card" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="slot1" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="Card" parent="PanelContainer/HBoxContainer/slot1" instance=ExtResource("2_hva06")]
+layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
+
+[node name="slot2" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Card3" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="Card" parent="PanelContainer/HBoxContainer/slot2" instance=ExtResource("2_hva06")]
+layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
+
+[node name="slot3" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Card4" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="Card" parent="PanelContainer/HBoxContainer/slot3" instance=ExtResource("2_hva06")]
+layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
+
+[node name="slot4" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Card5" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="Card" parent="PanelContainer/HBoxContainer/slot4" instance=ExtResource("2_hva06")]
+layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
+
+[node name="slot5" type="Control" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+[node name="Card" parent="PanelContainer/HBoxContainer/slot5" instance=ExtResource("2_hva06")]
 layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
+
+[node name="slot6" type="Control" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Card" parent="PanelContainer/HBoxContainer/slot6" instance=ExtResource("2_hva06")]
+layout_mode = 2
+offset_right = 8.0
+offset_bottom = 281.0
