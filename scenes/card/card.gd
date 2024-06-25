@@ -2,11 +2,12 @@ class_name Card
 
 extends Button
 
-
-var following_mouse: bool = false
+signal set_selected_card
+signal on_card_return_hard
 
 var tween_hover: Tween
 var tween_return_hand: Tween
+var following_mouse: bool = false
 
 
 func _process(_delta: float) -> void:
@@ -37,10 +38,12 @@ func handle_mouse_click(event: InputEvent) -> void:
 
 	if event.is_pressed():
 		following_mouse = true
+		emit_signal("set_selected_card", self)
 	else:
 		# drop card
 		following_mouse = false
-		# on_return_hand()
+		# emit_signal("on_card_return_hard",self)
+		on_return_hand()
 
 
 func on_return_hand():
