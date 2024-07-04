@@ -3,7 +3,6 @@ class_name Card
 extends Button
 
 signal set_selected_card
-signal on_card_return_hard
 
 var tween_hover: Tween
 var tween_return_hand: Tween
@@ -30,6 +29,10 @@ func follow_mouse():
 	global_position = mouse_pos - (size / 2.0)
 
 
+func update_position_slot(slot_position):
+	global_position = slot_position - (size / 2.0)
+
+
 func handle_mouse_click(event: InputEvent) -> void:
 	if not event is InputEventMouseButton:
 		return
@@ -42,7 +45,6 @@ func handle_mouse_click(event: InputEvent) -> void:
 	else:
 		# drop card
 		following_mouse = false
-		# emit_signal("on_card_return_hard",self)
 		on_return_hand()
 
 
