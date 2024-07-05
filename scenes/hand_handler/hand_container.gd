@@ -1,5 +1,5 @@
 class_name HandHandler
-extends HBoxContainer
+extends Control
 
 var selected_card: Card
 var cards_slots: Array[Node]
@@ -14,10 +14,11 @@ func _ready() -> void:
 		var card = card_slot.get_node("Card")
 		if card is Card:
 			cards_array.append(card)
-			card.set_selected_card.connect(select_card)
+			card.set_selected_card.connect(set_selected_card)
+			card.clean_selected_card.connect(clear_selected_card)
 
 
-func _process(_delta:float) -> void:
+func _process(_delta: float) -> void:
 	if selected_card == null:
 		return
 
@@ -26,24 +27,29 @@ func _process(_delta:float) -> void:
 
 	for i in cards_slots.size():
 		if selected_card.position.x > cards_slots[i].position.x:
-			if (parent_index(selected_card.get_parent()) < parent_index(cards_slots[i])):
+			if parent_index(selected_card.get_parent()) < parent_index(cards_slots[i]):
 				swap_cards(i)
 				break
 		if selected_card.position.x < cards_slots[i].position.x:
-			if (parent_index(selected_card.get_parent()) > parent_index(cards_slots[i])):
+			if parent_index(selected_card.get_parent()) > parent_index(cards_slots[i]):
 				swap_cards(i)
 				break
 
 
-func select_card(card):
+func set_selected_card(card):
 	selected_card = card
 
+
+func clear_selected_card():
+	selected_card = null
+
+
 func parent_index(card_slot):
-	var path:String = card_slot.get_path()
-	if ( path.contains("slot")):
+	var path: String = card_slot.get_path()
+	if path.contains("slot"):
 		return card_slot.get_index()
-	# else:
-	# 	return 0
+	else:
+		return 0
 
 
 func swap_cards(index):
@@ -55,12 +61,12 @@ func swap_cards(index):
 	var crossed_card: Card = cards_slots[index].get_child(0)
 
 	#movemos la carta afectada de hueco
-	crossed_card.reparent(selected_parent,false)
+	crossed_card.reparent(selected_parent, false)
 
 	#funciona esto de coger la posicion?
 	# crossed_card.update_position_slot(crossed_parent.position)
 
 	#eliminamos en el original de selected y añadimos en su nuevo hueco
-	selected_card.reparent(crossed_parent,false)
+	selected_card.reparent(crossed_parent, false)
 
 	is_crossing = false

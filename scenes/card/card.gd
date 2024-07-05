@@ -3,23 +3,15 @@ class_name Card
 extends Button
 
 signal set_selected_card
+signal clean_selected_card
 
 var tween_hover: Tween
 var tween_return_hand: Tween
-var following_mouse: bool = false
+@export var following_mouse: bool = false
 
 
 func _process(_delta: float) -> void:
 	follow_mouse()
-
-
-func _on_gui_input(event: InputEvent):
-	handle_mouse_click(event)
-	# Don't compute rotation when moving the card
-	if following_mouse:
-		return
-	if not event is InputEventMouseMotion:
-		return
 
 
 func follow_mouse():
@@ -28,9 +20,13 @@ func follow_mouse():
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	global_position = mouse_pos - (size / 2.0)
 
-
-func update_position_slot(slot_position):
-	global_position = slot_position - (size / 2.0)
+func _on_gui_input(event: InputEvent):
+	handle_mouse_click(event)
+	 #Don't compute rotation when moving the card
+	if following_mouse:
+		return
+	if not event is InputEventMouseMotion:
+		return
 
 
 func handle_mouse_click(event: InputEvent) -> void:
@@ -45,7 +41,12 @@ func handle_mouse_click(event: InputEvent) -> void:
 	else:
 		# drop card
 		following_mouse = false
+		emit_signal("clean_selected_card")
 		on_return_hand()
+
+
+func update_position_slot(slot_position):
+	global_position = slot_position - (size / 2.0)
 
 
 func on_return_hand():
