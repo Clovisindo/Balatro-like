@@ -40,40 +40,20 @@ layout_mode = 2
 theme_override_constants/separation = 190
 script = ExtResource("2_mpdri")
 
-[node name="slot1" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 
-[node name="Card" parent="PanelContainer/HBoxContainer/slot1" instance=ExtResource("2_hva06")]
-layout_mode = 2
-offset_right = 8.0
-offset_bottom = 281.0
-
-[node name="slot2" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("4_2ejti")]
 layout_mode = 2
 
-[node name="Card" parent="PanelContainer/HBoxContainer/slot2" instance=ExtResource("4_2ejti")]
-layout_mode = 0
-
-[node name="slot3" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card3" parent="PanelContainer/HBoxContainer" instance=ExtResource("5_27n2j")]
 layout_mode = 2
 
-[node name="Card" parent="PanelContainer/HBoxContainer/slot3" instance=ExtResource("5_27n2j")]
-layout_mode = 0
-
-[node name="slot4" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card4" parent="PanelContainer/HBoxContainer" instance=ExtResource("6_5c7o1")]
 layout_mode = 2
 
-[node name="Card" parent="PanelContainer/HBoxContainer/slot4" instance=ExtResource("6_5c7o1")]
-layout_mode = 0
-
-[node name="slot5" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card5" parent="PanelContainer/HBoxContainer" instance=ExtResource("7_ucojr")]
 layout_mode = 2
 
-[node name="Card" parent="PanelContainer/HBoxContainer/slot5" instance=ExtResource("7_ucojr")]
-layout_mode = 0
-
-[node name="slot6" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("8_nh7l3")]
 layout_mode = 2
-
-[node name="Card" parent="PanelContainer/HBoxContainer/slot6" instance=ExtResource("8_nh7l3")]
-layout_mode = 0

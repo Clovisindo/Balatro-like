@@ -5,9 +5,11 @@ extends Button
 signal set_selected_card
 signal clean_selected_card
 
+@export var following_mouse: bool = false
+
 var tween_hover: Tween
 var tween_return_hand: Tween
-@export var following_mouse: bool = false
+var new_position: Vector2
 
 
 func _process(_delta: float) -> void:
@@ -20,9 +22,9 @@ func follow_mouse():
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	global_position = mouse_pos - (size / 2.0)
 
+
 func _on_gui_input(event: InputEvent):
 	handle_mouse_click(event)
-	 #Don't compute rotation when moving the card
 	if following_mouse:
 		return
 	if not event is InputEventMouseMotion:
@@ -45,15 +47,15 @@ func handle_mouse_click(event: InputEvent) -> void:
 		on_return_hand()
 
 
-func update_position_slot(slot_position):
-	global_position = slot_position - (size / 2.0)
+func update_new_position(_position):
+	new_position = _position
 
 
 func on_return_hand():
 	if tween_return_hand and tween_return_hand.is_running():
 		tween_return_hand.kill()
 	tween_return_hand = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	tween_return_hand.tween_property(self, "position", Vector2.ZERO, 0.5)
+	tween_return_hand.tween_property(self, "position", new_position, 0.5)
 
 
 func _on_mouse_exited():
