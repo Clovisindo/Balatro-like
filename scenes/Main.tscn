@@ -37,23 +37,35 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_5ftmq")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 190
+theme_override_constants/separation = 0
 script = ExtResource("2_mpdri")
 
 [node name="Card" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
 
 [node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("4_2ejti")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
 
 [node name="Card3" parent="PanelContainer/HBoxContainer" instance=ExtResource("5_27n2j")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
 
 [node name="Card4" parent="PanelContainer/HBoxContainer" instance=ExtResource("6_5c7o1")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
 
 [node name="Card5" parent="PanelContainer/HBoxContainer" instance=ExtResource("7_ucojr")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
 
 [node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("8_nh7l3")]
 layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
