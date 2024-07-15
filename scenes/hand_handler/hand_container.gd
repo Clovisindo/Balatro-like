@@ -21,7 +21,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if selected_card == null:
 		return
-
 	if is_crossing:
 		return
 
@@ -34,10 +33,13 @@ func _process(_delta: float) -> void:
 			if parent_index(selected_card) > parent_index(cards_slots[i]):
 				swap_cards(i)
 				break
+	
+	#selected_card.position = selected_card.new_position
 
 
 func set_selected_card(card):
 	selected_card = card
+	#selected_card.update_new_position(selected_card.position)
 
 
 func clear_selected_card():

@@ -10,10 +10,25 @@ signal clean_selected_card
 var tween_hover: Tween
 var tween_return_hand: Tween
 var new_position: Vector2
+var state:bool = false
+var hold_counter : float = 0.0
+var hold_time : float = 0.3
+var dragging : bool = false
 
-
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	follow_mouse()
+	if Input.is_action_pressed("ui_left"):
+		hold_counter += delta
+		#dragging = true
+	else:
+		hold_counter = 0.0
+		#dragging = false
+	if dragging and hold_counter >= hold_time:
+		dragging = false
+		following_mouse = true
+		self.update_new_position(self.position)
+		emit_signal("set_selected_card", self)
+
 
 
 func follow_mouse():
@@ -36,11 +51,17 @@ func handle_mouse_click(event: InputEvent) -> void:
 		return
 	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
-
-	if event.is_pressed():
-		following_mouse = true
-		emit_signal("set_selected_card", self)
-	else:
+	
+	if Input.is_action_just_pressed("ui_left"):
+		state = !state
+		on_change_state(state)
+		dragging = true
+	#if Input.is_action_pressed("ui_left") and hold_counter >= hold_time:
+		#
+		#following_mouse = true
+		#emit_signal("set_selected_card", self)
+	elif Input.is_action_just_released("ui_left") and hold_counter >= hold_time:
+		#dragging = false
 		# drop card
 		following_mouse = false
 		emit_signal("clean_selected_card")
@@ -73,3 +94,16 @@ func _on_mouse_entered():
 	# 	tween_hover.kill()
 	# tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	# tween_hover.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)
+
+
+func on_change_state(state_bool):
+	if state_bool:
+		if tween_hover and tween_hover.is_running():
+			tween_hover.kill()
+		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+		tween_hover.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)
+	else:
+		if tween_hover and tween_hover.is_running():
+			tween_hover.kill()
+		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+		tween_hover.tween_property(self, "scale", Vector2.ONE, 0.55)
