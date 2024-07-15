@@ -11,24 +11,10 @@ var tween_hover: Tween
 var tween_return_hand: Tween
 var new_position: Vector2
 var state:bool = false
-var hold_counter : float = 0.0
-var hold_time : float = 0.3
 var dragging : bool = false
 
 func _process(delta: float) -> void:
 	follow_mouse()
-	if Input.is_action_pressed("ui_left"):
-		hold_counter += delta
-		#dragging = true
-	else:
-		hold_counter = 0.0
-		#dragging = false
-	if dragging and hold_counter >= hold_time:
-		dragging = false
-		following_mouse = true
-		self.update_new_position(self.position)
-		emit_signal("set_selected_card", self)
-
 
 
 func follow_mouse():
@@ -52,18 +38,30 @@ func handle_mouse_click(event: InputEvent) -> void:
 	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
 	
-	if Input.is_action_just_pressed("ui_left"):
-		state = !state
-		on_change_state(state)
-		dragging = true
-	#if Input.is_action_pressed("ui_left") and hold_counter >= hold_time:
-		#
-		#following_mouse = true
-		#emit_signal("set_selected_card", self)
-	elif Input.is_action_just_released("ui_left") and hold_counter >= hold_time:
-		#dragging = false
+	if Input.is_action_pressed("ui_left"):
+		#comprobamos si es una pulsacion larga o no
+		await get_tree().create_timer(0.2).timeout
+		if Input.is_action_pressed("ui_left"):
+			#activar dragging
+			dragging = true
+			print("draggins set a true")
+		else:
+			#change state card
+			dragging = false
+			print("draggins set a false")
+		
+		if dragging:
+			following_mouse = true
+			self.update_new_position(self.position)
+			emit_signal("set_selected_card", self)
+		else:
+			state = !state
+			on_change_state(state)
+
+	if Input.is_action_just_released("ui_left") and dragging:
 		# drop card
 		following_mouse = false
+		dragging = false
 		emit_signal("clean_selected_card")
 		on_return_hand()
 
