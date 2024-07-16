@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://853dnoqx03ia"]
+
+[ext_resource type="Script" path="res://scenes/card/card.gd" id="1_3eb7y"]
+[ext_resource type="Texture2D" uid="uid://tndqsuo6wssm" path="res://assets/sprites/jammo-original4.png" id="2_i6yyl"]
+
+[node name="Card" type="Button"]
+self_modulate = Color(1, 0, 0, 0)
+offset_right = 193.0
+offset_bottom = 259.0
+script = ExtResource("1_3eb7y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 194.0
+offset_bottom = 260.0
+texture = ExtResource("2_i6yyl")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
