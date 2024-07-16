@@ -13,6 +13,9 @@ var new_position: Vector2
 var state:bool = false
 var dragging : bool = false
 
+#const
+const select_state_pos_y: int = -50
+
 func _process(delta: float) -> void:
 	follow_mouse()
 
@@ -26,10 +29,10 @@ func follow_mouse():
 
 func _on_gui_input(event: InputEvent):
 	handle_mouse_click(event)
-	if following_mouse:
-		return
-	if not event is InputEventMouseMotion:
-		return
+	#if following_mouse:
+		#return
+	#if not event is InputEventMouseMotion:
+		#return
 
 
 func handle_mouse_click(event: InputEvent) -> void:
@@ -41,20 +44,18 @@ func handle_mouse_click(event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_left"):
 		#comprobamos si es una pulsacion larga o no
 		await get_tree().create_timer(0.2).timeout
-		if Input.is_action_pressed("ui_left"):
-			#activar dragging
+		if Input.is_action_pressed("ui_left"):#activar dragging
 			dragging = true
 			print("draggins set a true")
-		else:
-			#change state card
+		else:#change state card
 			dragging = false
 			print("draggins set a false")
 		
-		if dragging:
+		if dragging:#activar dragging
 			following_mouse = true
 			self.update_new_position(self.position)
 			emit_signal("set_selected_card", self)
-		else:
+		else:#change state card
 			state = !state
 			on_change_state(state)
 
@@ -74,8 +75,13 @@ func on_return_hand():
 	if tween_return_hand and tween_return_hand.is_running():
 		tween_return_hand.kill()
 	tween_return_hand = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	tween_return_hand.tween_property(self, "position", new_position, 0.5)
-
+	
+	
+	if state:
+		tween_return_hand.tween_property(self,"position:y", new_position.y + select_state_pos_y,0.5)
+		tween_return_hand.parallel().tween_property(self,"position:x",new_position.x,0.5)
+	else:
+		tween_return_hand.tween_property(self, "position", new_position, 0.5)
 
 func _on_mouse_exited():
 	pass
@@ -99,9 +105,9 @@ func on_change_state(state_bool):
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-		tween_hover.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)
+		tween_hover.tween_property(self,"position:y",select_state_pos_y,0.5)
 	else:
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-		tween_hover.tween_property(self, "scale", Vector2.ONE, 0.55)
+		tween_hover.tween_property(self,"position:y",Vector2.ONE.y,0.5)

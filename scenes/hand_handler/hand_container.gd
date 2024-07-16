@@ -11,7 +11,6 @@ var is_crossing: bool = false
 func _ready() -> void:
 	cards_slots = $".".get_children()
 	for card in cards_slots:
-		#var card = card_slot.get_node("Card")
 		if card is Card:
 			cards_array.append(card)
 			card.set_selected_card.connect(set_selected_card)
@@ -33,13 +32,10 @@ func _process(_delta: float) -> void:
 			if parent_index(selected_card) > parent_index(cards_slots[i]):
 				swap_cards(i)
 				break
-	
-	#selected_card.position = selected_card.new_position
 
 
 func set_selected_card(card):
 	selected_card = card
-	#selected_card.update_new_position(selected_card.position)
 
 
 func clear_selected_card():
