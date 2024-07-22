@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5jai3wsvva4j"]
 
-[ext_resource type="Script" path="res://scenes/card/card.gd" id="1_4ckcn"]
+[ext_resource type="Script" path="res://scenes/card/card_logic.gd" id="1_4ckcn"]
 [ext_resource type="Texture2D" uid="uid://dv6sx0mtwg1gi" path="res://assets/sprites/jammo-original6.png" id="2_v4wdv"]
+
 
 [node name="Card" type="Button"]
 self_modulate = Color(1, 0, 0, 0)

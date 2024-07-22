@@ -5,21 +5,20 @@
 [ext_resource type="PackedScene" uid="uid://da0o6iivb6kc2" path="res://scenes/card/card_visual.tscn" id="2_karx5"]
 
 [node name="Card" type="Control"]
-self_modulate = Color(1, 0, 0, 0)
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 0.168
+anchor_bottom = 0.398
+offset_right = -0.536011
+offset_bottom = 0.0959778
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 2
+size_flags_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_6llro")
 
-[node name="CardVisual" parent="." instance=ExtResource("2_karx5")]
-layout_mode = 1
-offset_right = 193.0
-offset_bottom = 259.0
-mouse_filter = 2
-card_logic = NodePath("../CardLogic")
-
 [node name="CardLogic" parent="." instance=ExtResource("1_604wi")]
+layout_mode = 0
+
+[node name="CardVisual" parent="." instance=ExtResource("2_karx5")]
 layout_mode = 0

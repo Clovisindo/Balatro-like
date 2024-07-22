@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://da0o6iivb6kc2"]
+
+[ext_resource type="Texture2D" uid="uid://v0yh11cbxyf2" path="res://assets/sprites/jammo-original.png" id="1_4ev1j"]
+[ext_resource type="Script" path="res://scenes/card/card_visual.gd" id="2_ovq4j"]
+
+[node name="CardVisual" type="TextureRect"]
+offset_right = 194.0
+offset_bottom = 260.0
+texture = ExtResource("1_4ev1j")
+script = ExtResource("2_ovq4j")

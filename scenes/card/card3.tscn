@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkpsuvrjj0rqn"]
 
-[ext_resource type="Script" path="res://scenes/card/card.gd" id="1_d52fi"]
+[ext_resource type="Script" path="res://scenes/card/card_logic.gd" id="1_d52fi"]
 [ext_resource type="Texture2D" uid="uid://dvyp8co778h17" path="res://assets/sprites/jammo-original3.png" id="2_5dx3r"]
 
 [node name="Card" type="Button"]

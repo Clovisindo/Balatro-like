@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d315lqvdadrat"]
+
+[ext_resource type="Script" path="res://scenes/card/card_logic.gd" id="1_57xwv"]
+
+[node name="CardLogic" type="Button"]
+self_modulate = Color(1, 0, 0, 0)
+offset_right = 193.0
+offset_bottom = 259.0
+script = ExtResource("1_57xwv")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

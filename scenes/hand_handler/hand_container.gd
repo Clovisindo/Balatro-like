@@ -3,7 +3,6 @@ extends HBoxContainer
 
 var selected_card: Card
 var cards_slots: Array[Node]
-var cards_array: Array
 
 var is_crossing: bool = false
 
@@ -12,9 +11,8 @@ func _ready() -> void:
 	cards_slots = $".".get_children()
 	for card in cards_slots:
 		if card is Card:
-			cards_array.append(card)
-			card.set_selected_card.connect(set_selected_card)
-			card.clean_selected_card.connect(clear_selected_card)
+			card.c_logic.set_selected_card.connect(set_selected_card)
+			card.c_logic.clean_selected_card.connect(clear_selected_card)
 
 
 func _process(_delta: float) -> void:
@@ -52,7 +50,7 @@ func swap_cards(index):
 
 	var origin_position = cards_slots[index].position
 	self.move_child(selected_card, index)
-	selected_card.update_new_position(origin_position)
+	selected_card.c_logic.update_new_position(origin_position)
 
 	is_crossing = false
 	
