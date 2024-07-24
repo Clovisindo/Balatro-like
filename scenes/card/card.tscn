@@ -5,14 +5,22 @@
 
 [node name="Card" type="Button"]
 self_modulate = Color(1, 0, 0, 0)
-offset_right = 193.0
-offset_bottom = 259.0
+anchors_preset = -1
+anchor_right = 0.168
+anchor_bottom = 0.4
+offset_right = -0.536011
+offset_bottom = -0.200012
 script = ExtResource("1_6llro")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 194.0
-offset_bottom = 260.0
+[node name="Node" type="Node" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="Node"]
+anchors_preset = -1
+anchor_right = 0.168
+anchor_bottom = 0.401
+offset_right = 0.463989
+offset_bottom = 0.151978
+mouse_filter = 2
 texture = ExtResource("1_4mdgv")
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
