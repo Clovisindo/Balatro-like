@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	follow_card_visual_move(delta)
 
+
 func follow_mouse():
 	if not following_mouse:
 		return
@@ -40,10 +41,11 @@ func follow_mouse():
 func follow_card_visual():
 	card_visual.global_position = lerp(card_visual.global_position,self.global_position,0.1)
 
+
 func follow_card_visual_move(delta):
 	var mouse_pos: Vector2 = get_local_mouse_position()
 	if dragging:
-		var lerp_val_x: float = remap(mouse_pos.x, 0.0, card_visual.size.x, 0, 1)
+		var lerp_val_x: float = clamp(remap(mouse_pos.x, 0.0, card_visual.size.x, 0, 1),0,1)
 		card_visual.rotation = lerp_angle(deg_to_rad(-60), deg_to_rad(60),lerp_val_x )
 	else:
 		card_visual.rotation = lerp(card_visual.rotation,0.0,1)
