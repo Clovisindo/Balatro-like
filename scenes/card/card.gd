@@ -43,14 +43,8 @@ func follow_card_visual():
 func follow_card_visual_move(delta):
 	var mouse_pos: Vector2 = get_local_mouse_position()
 	if dragging:
-		var lerp_val_x: float = remap(mouse_pos.x, 0.0, card_visual.size.x, 0, 1) # esto son radianes
+		var lerp_val_x: float = remap(mouse_pos.x, 0.0, card_visual.size.x, 0, 1)
 		card_visual.rotation = lerp_angle(deg_to_rad(-60), deg_to_rad(60),lerp_val_x )
-		#if lerp_val_x != 0:
-			#var rot_x: float = lerp_angle(0, 60, 1)# esto devuelve el lerp entre -60 y 60
-			#card_visual.rotation = rot_x
-		#else:
-			#var rot_x: float = lerp_angle(60, 0, 1)# esto devuelve el lerp entre -60 y 60
-			#card_visual.rotation = rot_x
 
 
 func _on_gui_input(event: InputEvent):
