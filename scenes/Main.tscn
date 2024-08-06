@@ -1,13 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq7jyexudk5vk"]
+[gd_scene load_steps=6 format=3 uid="uid://dq7jyexudk5vk"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_w0eo1"]
 [ext_resource type="PackedScene" uid="uid://d315lqvdadrat" path="res://scenes/card/card.tscn" id="2_hva06"]
 [ext_resource type="Script" path="res://scenes/hand_handler/hand_container.gd" id="2_mpdri"]
-[ext_resource type="PackedScene" uid="uid://d1by1wghmrkd2" path="res://scenes/card/card2.tscn" id="4_2ejti"]
-[ext_resource type="PackedScene" uid="uid://bkpsuvrjj0rqn" path="res://scenes/card/card3.tscn" id="5_27n2j"]
-[ext_resource type="PackedScene" uid="uid://853dnoqx03ia" path="res://scenes/card/card4.tscn" id="6_5c7o1"]
-[ext_resource type="PackedScene" uid="uid://cb7csbu4c4ak8" path="res://scenes/card/card5.tscn" id="7_ucojr"]
-[ext_resource type="PackedScene" uid="uid://b5jai3wsvva4j" path="res://scenes/card/card6.tscn" id="8_nh7l3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b67eh"]
 bg_color = Color(0.0117647, 0.196078, 0, 1)
@@ -45,27 +40,27 @@ layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
 
-[node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("4_2ejti")]
+[node name="Card2" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
 
-[node name="Card3" parent="PanelContainer/HBoxContainer" instance=ExtResource("5_27n2j")]
+[node name="Card3" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
 
-[node name="Card4" parent="PanelContainer/HBoxContainer" instance=ExtResource("6_5c7o1")]
+[node name="Card4" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
 
-[node name="Card5" parent="PanelContainer/HBoxContainer" instance=ExtResource("7_ucojr")]
+[node name="Card5" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
 
-[node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("8_nh7l3")]
+[node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13

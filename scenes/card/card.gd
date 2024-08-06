@@ -6,6 +6,7 @@ signal set_selected_card
 signal clean_selected_card
 
 @export var following_mouse: bool = false
+var card_visual:TextureRect
 
 var tween_hover: Tween
 var tween_return_hand: Tween
@@ -16,8 +17,18 @@ var dragging : bool = false
 #const
 const select_state_pos_y: int = -50
 
+
+func _ready() -> void:
+	card_visual = get_node("Node/TextureRect")
+
+
 func _process(delta: float) -> void:
 	follow_mouse()
+	follow_card_visual()
+
+
+func _physics_process(delta: float) -> void:
+	follow_card_visual_move(delta)
 
 
 func follow_mouse():
@@ -25,6 +36,19 @@ func follow_mouse():
 		return
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	global_position = mouse_pos - (size / 2.0)
+
+
+func follow_card_visual():
+	card_visual.global_position = lerp(card_visual.global_position,self.global_position,0.1)
+
+
+func follow_card_visual_move(delta):
+	var mouse_pos: Vector2 = get_local_mouse_position()
+	if dragging:
+		var lerp_val_x: float = clamp(remap(mouse_pos.x, 0.0, card_visual.size.x, 0, 1),0,1)
+		card_visual.rotation = lerp_angle(deg_to_rad(-60), deg_to_rad(60),lerp_val_x )
+	else:
+		card_visual.rotation = lerp(card_visual.rotation,0.0,1)
 
 
 func _on_gui_input(event: InputEvent):
@@ -82,6 +106,7 @@ func on_return_hand():
 		tween_return_hand.parallel().tween_property(self,"position:x",new_position.x,0.5)
 	else:
 		tween_return_hand.tween_property(self, "position", new_position, 0.5)
+
 
 func _on_mouse_exited():
 	pass
