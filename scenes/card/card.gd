@@ -77,6 +77,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 		
 		if dragging:#activar dragging
 			following_mouse = true
+			card_visual.z_index = 1
 			self.update_new_position(self.position)
 			emit_signal("set_selected_card", self)
 		else:#change state card
@@ -87,6 +88,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 		# drop card
 		following_mouse = false
 		dragging = false
+		card_visual.z_index = 0
 		emit_signal("clean_selected_card")
 		on_return_hand()
 
