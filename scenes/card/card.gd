@@ -7,6 +7,7 @@ signal clean_selected_card
 
 @export var following_mouse: bool = false
 var card_visual:TextureRect
+var card_shadow:Panel
 
 var tween_hover: Tween
 var tween_return_hand: Tween
@@ -19,7 +20,8 @@ const select_state_pos_y: int = -50
 
 
 func _ready() -> void:
-	card_visual = get_node("Node/TextureRect")
+	card_visual = get_node("Node/CardVisual")
+	card_shadow = get_node("Node/CardVisual/Shadow")
 
 
 func _process(delta: float) -> void:
@@ -77,6 +79,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 		
 		if dragging:#activar dragging
 			following_mouse = true
+			card_shadow.visible = true
 			card_visual.z_index = 1
 			self.update_new_position(self.position)
 			emit_signal("set_selected_card", self)
@@ -87,6 +90,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 	if Input.is_action_just_released("ui_left") and dragging:
 		# drop card
 		following_mouse = false
+		card_shadow.visible = false
 		dragging = false
 		card_visual.z_index = 0
 		emit_signal("clean_selected_card")

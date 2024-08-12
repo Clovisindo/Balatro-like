@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://scenes/hand_handler/hand_container.gd" id="2_mpdri"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b67eh"]
-bg_color = Color(0.0117647, 0.196078, 0, 1)
+bg_color = Color(0.164706, 0.541176, 0.427451, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ftmq"]
-bg_color = Color(0, 0, 0.27451, 1)
+bg_color = Color(0, 0, 0, 0.419608)
 
 [node name="Main" type="Panel"]
 anchors_preset = 15
