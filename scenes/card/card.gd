@@ -81,6 +81,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 			following_mouse = true
 			card_shadow.visible = true
 			card_visual.z_index = 1
+			on_enter_hovered()
 			self.update_new_position(self.position)
 			emit_signal("set_selected_card", self)
 		else:#change state card
@@ -92,6 +93,7 @@ func handle_mouse_click(event: InputEvent) -> void:
 		following_mouse = false
 		card_shadow.visible = false
 		dragging = false
+		on_exit_hovered()
 		card_visual.z_index = 0
 		emit_signal("clean_selected_card")
 		on_return_hand()
@@ -114,21 +116,19 @@ func on_return_hand():
 		tween_return_hand.tween_property(self, "position", new_position, 0.5)
 
 
-func _on_mouse_exited():
-	pass
-	# # Reset scale
-	# if tween_hover and tween_hover.is_running():
-	# 	tween_hover.kill()
-	# tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	# tween_hover.tween_property(self, "scale", Vector2.ONE, 0.55)
+func on_exit_hovered():
+	 # Reset scale
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(card_visual, "scale", Vector2.ONE, 0.55)
 
 
-func _on_mouse_entered():
-	pass
-	# if tween_hover and tween_hover.is_running():
-	# 	tween_hover.kill()
-	# tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	# tween_hover.tween_property(self, "scale", Vector2(1.2, 1.2), 0.5)
+func on_enter_hovered():
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(card_visual, "scale", Vector2(1.2, 1.2), 0.5)
 
 
 func on_change_state(state_bool):
