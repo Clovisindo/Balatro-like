@@ -12,7 +12,7 @@ var dragging: bool = false
 
 
 func _ready() -> void:
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 func _process(delta: float) -> void:
@@ -32,6 +32,7 @@ func _on_gui_input(event: InputEvent):
 	#return
 	#if not event is InputEventMouseMotion:
 	#return
+
 
 func handle_mouse_click(event: InputEvent) -> void:
 	if not event is InputEventMouseButton:

@@ -55,5 +55,5 @@ func swap_cards(index):
 	selected_card.update_new_position(origin_position)
 
 	is_crossing = false
-	
+
 	cards_slots = $".".get_children()

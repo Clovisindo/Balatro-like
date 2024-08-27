@@ -5,7 +5,6 @@ extends Button
 signal set_selected_card
 signal clean_selected_card
 
-
 @export var following_mouse: bool = false
 var card_visual: TextureRect
 var card_shadow: Panel
@@ -16,10 +15,9 @@ var tween_shake: Tween
 var new_position: Vector2
 var state: bool = false
 var dragging: bool = false
+var m_entered: bool = false
 
-var defaultPosition:Vector2
-var offsetPosition:Vector2
-var newTransform:Vector2
+const TWEEN_DURATION = 0.05
 
 #const
 const select_state_pos_y: int = -50
@@ -32,24 +30,23 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	follow_mouse()
-	
 
 
 func _physics_process(delta: float) -> void:
 	follow_card_visual(delta)
-	#follow_card_visual_move(delta)
+	follow_card_visual_move(delta)
+	pass
 
 
 func follow_mouse():
 	if not following_mouse:
 		return
 	var mouse_pos: Vector2 = get_global_mouse_position()
-	global_position = mouse_pos - (size / 2.0)
+	global_position = mouse_pos - ( size / 2.0)
 
 
 func follow_card_visual(delta):
 	card_visual.global_position = lerp(card_visual.global_position, self.global_position, 0.1)
-	#card_visual.global_position = card_visual.global_position.lerp(self.global_position,delta * 40)
 
 
 func follow_card_visual_move(delta):
@@ -142,7 +139,9 @@ func do_tween_return_hand():
 		tween_return_hand.kill()
 	tween_return_hand = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	if state:
-		tween_return_hand.tween_property(self, "position:y", new_position.y + select_state_pos_y, 0.5)
+		tween_return_hand.tween_property(
+			self, "position:y", new_position.y + select_state_pos_y, 0.5
+		)
 		tween_return_hand.parallel().tween_property(self, "position:x", new_position.x, 0.5)
 	else:
 		tween_return_hand.tween_property(self, "position", new_position, 0.5)
@@ -162,12 +161,32 @@ func do_tween_hover_exit():
 	tween_hover.tween_property(card_visual, "scale", Vector2.ONE, 0.55)
 
 
-func do_tween_shake(amount):
-	offsetPosition = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0))* amount + defaultPosition
+func do_tween_shake():
+	var shake = 3
+	var shake_duration = 0.05
+	var shake_count = 3
+	var tween: Tween
+	#card_visual.pivot_offset = Vector2(size.x /2, size.y / 2)
+	if tween and tween.is_running():
+		tween.kill()
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	for i in shake_count:
+		#card_visual.rotation = lerp_angle(deg_to_rad(-shake), deg_to_rad(shake), shake_duration)
+		#tween.tween_property(card_visual,"rotation", randf_range(deg_to_rad(-shake), deg_to_rad(shake)), shake_duration)
+		tween.tween_property(card_visual,"position", card_visual.position + Vector2(randf_range(-shake, shake), randf_range(-shake, shake)), shake_duration)
+		#offsetPosition = (Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * amount + defaultPosition)
+	#card_visual.pivot_offset = Vector2(0,0)
 
 
+func _on_mouse_entered() -> void:
+	if !m_entered:
+		m_entered = true
+		print(m_entered)
+		do_tween_shake()
 
-#func receive_shake( amount, duration):
-	#if tween_shake and tween_shake.is_running():
-		#tween_shake.kill()
-	#tween_shake.inter
+
+func _on_mouse_exited() -> void:
+	if m_entered:
+		m_entered = false
+		print(m_entered)
+
