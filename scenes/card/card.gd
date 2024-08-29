@@ -166,7 +166,6 @@ func do_tween_shake():
 	var shake_duration = 0.05
 	var shake_count = 3
 	var tween: Tween
-	#card_visual.pivot_offset = Vector2(size.x /2, size.y / 2)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
@@ -175,18 +174,3 @@ func do_tween_shake():
 		#tween.tween_property(card_visual,"rotation", randf_range(deg_to_rad(-shake), deg_to_rad(shake)), shake_duration)
 		tween.tween_property(card_visual,"position", card_visual.position + Vector2(randf_range(-shake, shake), randf_range(-shake, shake)), shake_duration)
 		#offsetPosition = (Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * amount + defaultPosition)
-	#card_visual.pivot_offset = Vector2(0,0)
-
-
-func _on_mouse_entered() -> void:
-	if !m_entered:
-		m_entered = true
-		print(m_entered)
-		do_tween_shake()
-
-
-func _on_mouse_exited() -> void:
-	if m_entered:
-		m_entered = false
-		print(m_entered)
-
