@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://d315lqvdadrat"]
+[gd_scene load_steps=5 format=3 uid="uid://d315lqvdadrat"]
 
 [ext_resource type="Texture2D" uid="uid://v0yh11cbxyf2" path="res://assets/sprites/jammo-original.png" id="1_4mdgv"]
 [ext_resource type="Script" path="res://scenes/card/card.gd" id="1_6llro"]
+[ext_resource type="Shader" path="res://scenes/card/3dcard.gdshader" id="1_41f0n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7tibi"]
+shader = ExtResource("1_41f0n")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 0.0
 
 [node name="Card" type="Button"]
 self_modulate = Color(1, 0, 0, 0)
@@ -15,11 +24,12 @@ script = ExtResource("1_6llro")
 [node name="Node" type="Node" parent="."]
 
 [node name="CardVisual" type="TextureRect" parent="Node"]
+material = SubResource("ShaderMaterial_7tibi")
 anchors_preset = -1
-anchor_right = 0.168
+anchor_right = 0.167
 anchor_bottom = 0.401
-offset_right = 0.463989
-offset_bottom = 0.151978
+offset_right = 0.615982
+offset_bottom = -0.847992
 mouse_filter = 2
 texture = ExtResource("1_4mdgv")
 
