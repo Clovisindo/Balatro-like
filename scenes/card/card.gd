@@ -18,6 +18,10 @@ var dragging: bool = false
 var m_entered: bool = false
 
 const TWEEN_DURATION = 0.05
+const  manualTiltAmount = 20
+const autoTiltAmount = 30
+const tiltSpeed = 20
+var TimeSeconds
 
 #const
 const select_state_pos_y: int = -50
@@ -26,16 +30,20 @@ const select_state_pos_y: int = -50
 func _ready() -> void:
 	card_visual = get_node("Node/CardVisual")
 	card_shadow = get_node("Node/CardVisual/Shadow")
+	TimeSeconds = 0
 
 
 func _process(delta: float) -> void:
 	follow_mouse()
+	TimeSeconds += delta
+	if !dragging:
+		do_idle_rotation(delta)
 
 
 func _physics_process(delta: float) -> void:
 	follow_card_visual(delta)
 	follow_card_visual_move(delta)
-	pass
+	
 
 
 func follow_mouse():
@@ -77,6 +85,8 @@ func handle_mouse_click(event: InputEvent) -> void:
 		await get_tree().create_timer(0.2).timeout
 		if Input.is_action_pressed("ui_left"):  #activar dragging
 			dragging = true
+			self.card_visual.material.set("shader_parameter/y_rot",rad_to_deg(0))
+			self.card_visual.material.set("shader_parameter/x_rot",rad_to_deg(0))
 			print("draggins set a true")
 		else:  #change state card
 			dragging = false
@@ -159,6 +169,39 @@ func do_tween_hover_exit():
 		tween_hover.kill()
 	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_hover.tween_property(card_visual, "scale", Vector2.ONE, 0.55)
+
+
+func do_idle_rotation(delta):
+	var sine 
+	var cosine 
+	var tiltX
+	var tiltY
+	
+	var savedIndex = 1
+	if !dragging:
+		sine = sin(TimeSeconds + savedIndex) * 0.2
+		cosine = cos(TimeSeconds + savedIndex) * 0.2
+	else:
+		sine = sin(TimeSeconds + savedIndex) * 1
+		cosine = cos(TimeSeconds + savedIndex) * 1
+
+	var offset = global_position - get_global_mouse_position()
+	#Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	#if dragging:# esto es hovered no dragging
+		#tiltX = (offset.y * -1) * manualTiltAmount
+		#tiltY = offset.x * manualTiltAmount
+	#else:
+	tiltX = 0
+	tiltY = 0
+
+
+	var lerpX = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/x_rot")), tiltX + sine , tiltSpeed  * delta)
+	var lerpY = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/y_rot")),tiltY + cosine, tiltSpeed  * delta)
+	#var lerpX = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/x_rot")), tiltX +( sine * autoTiltAmount), tiltSpeed  * delta)
+	#var lerpY = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/y_rot")),tiltY +( cosine * autoTiltAmount), tiltSpeed  * delta)
+
+	self.card_visual.material.set("shader_parameter/y_rot",rad_to_deg(lerpX))
+	self.card_visual.material.set("shader_parameter/x_rot",rad_to_deg(lerpY))
 
 
 func do_tween_shake():

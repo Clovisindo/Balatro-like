@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7tibi"]
 shader = ExtResource("1_41f0n")
 shader_parameter/fov = 90.0
-shader_parameter/cull_back = true
+shader_parameter/cull_back = false
 shader_parameter/y_rot = 0.0
 shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
