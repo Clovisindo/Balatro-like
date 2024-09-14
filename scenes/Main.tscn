@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://dq7jyexudk5vk"]
+[gd_scene load_steps=5 format=3 uid="uid://dq7jyexudk5vk"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_w0eo1"]
 [ext_resource type="PackedScene" uid="uid://d315lqvdadrat" path="res://scenes/card/card.tscn" id="2_hva06"]
 [ext_resource type="Script" path="res://scenes/hand_handler/hand_container.gd" id="2_mpdri"]
 
@@ -17,7 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_b67eh")
-script = ExtResource("1_w0eo1")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

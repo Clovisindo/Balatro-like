@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1by1wghmrkd2"]
+[gd_scene load_steps=5 format=3 uid="uid://d1by1wghmrkd2"]
 
+[ext_resource type="Shader" uid="uid://der7uosxt5cn0" path="res://scenes/card/card2.tres" id="1_q2dg1"]
 [ext_resource type="Script" path="res://scenes/card/card2.gd" id="1_tukcs"]
 [ext_resource type="Texture2D" uid="uid://m4xfvwg3jp8g" path="res://assets/sprites/jammo-original2.png" id="2_b0dx1"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_062f3"]
+shader = ExtResource("1_q2dg1")
+
 [node name="Card" type="Button"]
 self_modulate = Color(1, 0, 0, 0)
+material = SubResource("ShaderMaterial_062f3")
 offset_right = 193.0
 offset_bottom = 259.0
 script = ExtResource("1_tukcs")
