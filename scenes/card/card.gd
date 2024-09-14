@@ -15,12 +15,13 @@ var tween_shake: Tween
 var new_position: Vector2
 var state: bool = false
 var dragging: bool = false
-var m_entered: bool = false
+var selected: bool = false
+var hovered: bool = false
 
 const TWEEN_DURATION = 0.05
-const  manualTiltAmount = 20
-const autoTiltAmount = 30
-const tiltSpeed = 20
+const  manualTiltAmount = 3
+const autoTiltAmount = 7
+const tiltSpeed = 5
 var TimeSeconds
 
 #const
@@ -36,14 +37,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	follow_mouse()
 	TimeSeconds += delta
-	if !dragging:
-		do_idle_rotation(delta)
+	
 
 
 func _physics_process(delta: float) -> void:
 	follow_card_visual(delta)
 	follow_card_visual_move(delta)
-	
+	if !dragging and !selected:
+		do_idle_rotation(delta)
 
 
 func follow_mouse():
@@ -133,11 +134,14 @@ func on_enter_hovered():
 
 func on_change_state(state_bool):
 	if state_bool:
+		selected = true
+		reset_rotation()
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		tween_hover.tween_property(self, "position:y", select_state_pos_y, 0.5)
 	else:
+		selected = false
 		if tween_hover and tween_hover.is_running():
 			tween_hover.kill()
 		tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -177,32 +181,33 @@ func do_idle_rotation(delta):
 	var tiltX
 	var tiltY
 	
-	var savedIndex = 1
-	if !dragging:
-		sine = sin(TimeSeconds + savedIndex) * 0.2
-		cosine = cos(TimeSeconds + savedIndex) * 0.2
+	var savedIndex = self.get_index()
+	if hovered:
+		sine = sin(TimeSeconds + savedIndex ) * 0.2
+		cosine = cos(TimeSeconds + savedIndex ) * 0.2
 	else:
-		sine = sin(TimeSeconds + savedIndex) * 1
-		cosine = cos(TimeSeconds + savedIndex) * 1
+		sine = sin(TimeSeconds + savedIndex ) * 1
+		cosine = cos(TimeSeconds + savedIndex ) * 1
 
-	var offset = global_position - get_global_mouse_position()
-	#Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-	#if dragging:# esto es hovered no dragging
-		#tiltX = (offset.y * -1) * manualTiltAmount
-		#tiltY = offset.x * manualTiltAmount
-	#else:
-	tiltX = 0
-	tiltY = 0
+	var offset = (card_visual.position + (size/2) - card_visual.get_local_mouse_position()) /120
+	if hovered:# esto es hovered no dragging
+		tiltX = (offset.y * -1) * manualTiltAmount
+		tiltY = offset.x * manualTiltAmount
+	else:
+		tiltX = 0
+		tiltY = 0
 
 
-	var lerpX = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/x_rot")), tiltX + sine , tiltSpeed  * delta)
-	var lerpY = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/y_rot")),tiltY + cosine, tiltSpeed  * delta)
-	#var lerpX = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/x_rot")), tiltX +( sine * autoTiltAmount), tiltSpeed  * delta)
-	#var lerpY = lerp_angle(deg_to_rad(self.card_visual.material.get("shader_parameter/y_rot")),tiltY +( cosine * autoTiltAmount), tiltSpeed  * delta)
+	var lerpX = lerp(self.card_visual.material.get("shader_parameter/x_rot"), tiltX +( sine * autoTiltAmount), tiltSpeed  * delta)
+	var lerpY = lerp(self.card_visual.material.get("shader_parameter/y_rot"),tiltY +( cosine * autoTiltAmount), tiltSpeed  * delta)
+	
+	self.card_visual.material.set("shader_parameter/y_rot",lerpX)
+	self.card_visual.material.set("shader_parameter/x_rot",lerpY)
 
-	self.card_visual.material.set("shader_parameter/y_rot",rad_to_deg(lerpX))
-	self.card_visual.material.set("shader_parameter/x_rot",rad_to_deg(lerpY))
 
+func reset_rotation():
+	self.card_visual.material.set("shader_parameter/y_rot",0.0)
+	self.card_visual.material.set("shader_parameter/x_rot",0.0)
 
 func do_tween_shake():
 	var shake = 3
@@ -217,3 +222,11 @@ func do_tween_shake():
 		#tween.tween_property(card_visual,"rotation", randf_range(deg_to_rad(-shake), deg_to_rad(shake)), shake_duration)
 		tween.tween_property(card_visual,"position", card_visual.position + Vector2(randf_range(-shake, shake), randf_range(-shake, shake)), shake_duration)
 		#offsetPosition = (Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * amount + defaultPosition)
+
+
+func _on_mouse_entered() -> void:
+	hovered = true
+
+
+func _on_mouse_exited() -> void:
+	hovered = false
