@@ -1,6 +1,6 @@
 shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
-uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D texture_albedo : source_color;
 uniform float threshold = 0.1;
 uniform float effect_alpha_mult : hint_range(0,1) = 1.0;
 uniform float direction : hint_range(0,1) = 0.5;
@@ -8,8 +8,8 @@ uniform float specular = 1.0;
 uniform float metallic : hint_range(0,1) = 0.75 ;
 uniform float roughness: hint_range(0,1) = 0.75;
 uniform float emission_energy: hint_range(0,1) = 0.2;
-uniform sampler2D gradient: hint_albedo;
-uniform sampler2D noise: hint_albedo;
+uniform sampler2D gradient: source_color;
+uniform sampler2D noise: source_color;
 
 void vertex() {
 

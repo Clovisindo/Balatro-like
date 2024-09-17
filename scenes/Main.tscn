@@ -62,3 +62,5 @@ size_flags_vertical = 13
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
+
+[connection signal="sort_children" from="PanelContainer/HBoxContainer" to="PanelContainer/HBoxContainer" method="_on_sort_children"]

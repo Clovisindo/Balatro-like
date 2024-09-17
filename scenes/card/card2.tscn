@@ -1,25 +1,73 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1by1wghmrkd2"]
+[gd_scene load_steps=12 format=3 uid="uid://d1by1wghmrkd2"]
 
-[ext_resource type="Shader" uid="uid://der7uosxt5cn0" path="res://scenes/card/card2.tres" id="1_q2dg1"]
-[ext_resource type="Script" path="res://scenes/card/card2.gd" id="1_tukcs"]
-[ext_resource type="Texture2D" uid="uid://m4xfvwg3jp8g" path="res://assets/sprites/jammo-original2.png" id="2_b0dx1"]
+[ext_resource type="Shader" path="res://scenes/card/cardFoil.gdshader" id="1_bjwgd"]
+[ext_resource type="Texture2D" uid="uid://v0yh11cbxyf2" path="res://assets/sprites/jammo-original.png" id="2_3enh5"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_062f3"]
-shader = ExtResource("1_q2dg1")
+[sub_resource type="Gradient" id="Gradient_qqav6"]
+offsets = PackedFloat32Array(0, 0.10687, 0.194656, 0.270992, 0.381679, 0.496183, 0.599237, 0.729008, 0.847328, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0146028, 0.279187, 0, 1, 0.0390136, 0.331827, 0.364186, 1, 0.111212, 0.360041, 0.602331, 1, 0.544805, 0.252493, 0.757707, 1, 0.822402, 0.260605, 0.469144, 1, 0.913295, 0.339157, 0.351009, 1, 0.901392, 0.563512, 0.319868, 1, 0.828224, 0.734173, 0.333242, 1, 1, 1, 1, 1)
 
-[node name="Card" type="Button"]
-self_modulate = Color(1, 0, 0, 0)
-material = SubResource("ShaderMaterial_062f3")
-offset_right = 193.0
-offset_bottom = 259.0
-script = ExtResource("1_tukcs")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tfh30"]
+gradient = SubResource("Gradient_qqav6")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 194.0
-offset_bottom = 260.0
-texture = ExtResource("2_b0dx1")
+[sub_resource type="Gradient" id="Gradient_ai0te"]
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mjyqw"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cl7mm"]
+color_ramp = SubResource("Gradient_ai0te")
+noise = SubResource("FastNoiseLite_mjyqw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxfyh"]
+render_priority = 0
+shader = ExtResource("1_bjwgd")
+shader_parameter/threshold = 1.0
+shader_parameter/effect_alpha_mult = 1.0
+shader_parameter/direction = 0.5
+shader_parameter/specular = 1.0
+shader_parameter/metallic = 0.75
+shader_parameter/roughness = 0.75
+shader_parameter/emission_energy = 0.2
+shader_parameter/texture_albedo = ExtResource("2_3enh5")
+shader_parameter/gradient = SubResource("GradientTexture2D_tfh30")
+shader_parameter/noise = SubResource("NoiseTexture2D_cl7mm")
+
+[sub_resource type="Animation" id="Animation_f0tk6"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.17101, -0.17101, -0.0301537, 0.969846)
+
+[sub_resource type="Animation" id="Animation_3nanl"]
+resource_name = "rotation"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 4, 1, -0.17101, 0.17101, 0.0301537, 0.969846, 8, 1, -0.17101, -0.17101, -0.0301537, 0.969846, 8.1, 1, -0.17101, -0.17101, -0.0301537, 0.969846, 16, 1, -0.17101, 0.17101, 0.0301537, 0.969846, 20, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c2qls"]
+_data = {
+"RESET": SubResource("Animation_f0tk6"),
+"rotation": SubResource("Animation_3nanl")
+}
+
+[node name="Card" type="Node3D"]
+
+[node name="sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.939692, 0.116978, -0.321394, -4.09782e-08, 0.939693, 0.34202, 0.34202, -0.321394, 0.883022, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_yxfyh")
+texture = ExtResource("2_3enh5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sprite3D"]
+libraries = {
+"": SubResource("AnimationLibrary_c2qls")
+}
