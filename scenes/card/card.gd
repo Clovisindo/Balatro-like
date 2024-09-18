@@ -209,6 +209,7 @@ func reset_rotation():
 	self.card_visual.material.set("shader_parameter/y_rot",0.0)
 	self.card_visual.material.set("shader_parameter/x_rot",0.0)
 
+
 func do_tween_shake():
 	var shake = 3
 	var shake_duration = 0.05
@@ -218,14 +219,13 @@ func do_tween_shake():
 		tween.kill()
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 	for i in shake_count:
-		#card_visual.rotation = lerp_angle(deg_to_rad(-shake), deg_to_rad(shake), shake_duration)
-		#tween.tween_property(card_visual,"rotation", randf_range(deg_to_rad(-shake), deg_to_rad(shake)), shake_duration)
 		tween.tween_property(card_visual,"position", card_visual.position + Vector2(randf_range(-shake, shake), randf_range(-shake, shake)), shake_duration)
-		#offsetPosition = (Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * amount + defaultPosition)
 
 
 func _on_mouse_entered() -> void:
 	hovered = true
+	if Global.selected_card == null :
+		do_tween_shake()
 
 
 func _on_mouse_exited() -> void:

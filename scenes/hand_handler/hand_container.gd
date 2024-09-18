@@ -1,6 +1,7 @@
 class_name HandHandler
 extends HBoxContainer
 
+
 var selected_card: Card
 var cards_slots: Array[Node]
 var cards_array: Array
@@ -36,10 +37,12 @@ func _process(_delta: float) -> void:
 
 func set_selected_card(card):
 	selected_card = card
+	Global.selected_card = card
 
 
 func clear_selected_card():
 	selected_card = null
+	Global.selected_card = null
 
 
 func parent_index(card_slot):
@@ -59,7 +62,6 @@ func swap_cards(index):
 
 
 func _on_sort_children() -> void:
-	print("test on sort")
 	cards_slots = $".".get_children()
 	for card in cards_slots:
 		if card is Card:
