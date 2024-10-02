@@ -36,12 +36,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	follow_mouse()
-	TimeSeconds += delta
 
 
 func _physics_process(delta: float) -> void:
 	follow_card_visual(delta)
 	follow_card_visual_move(delta)
+	TimeSeconds += delta
 	if !dragging :
 		do_idle_rotation(delta)
 
@@ -68,10 +68,6 @@ func follow_card_visual_move(delta):
 
 func _on_gui_input(event: InputEvent):
 	handle_mouse_click(event)
-	#if following_mouse:
-	#return
-	#if not event is InputEventMouseMotion:
-	#return
 
 
 func handle_mouse_click(event: InputEvent) -> void:
@@ -177,36 +173,27 @@ func do_tween_hover_exit():
 
 func interpolate( min_value, max_value, t) -> float:
 	return min_value + (max_value - min_value) * abs(sin(t))
-	#t += delta
 
 func do_idle_rotation(delta):
-	var sine 
-	var cosine 
-	var tiltX
-	var tiltY
-	
 	var savedIndex = self.get_index()
+	if TimeSeconds + savedIndex > 2*PI:#controlamos que no se haga mas grande que una vuelta completa
+		TimeSeconds =  ((TimeSeconds + savedIndex) - 2*PI) - savedIndex
+	
+	var sine = interpolate(-5,5,TimeSeconds + savedIndex)
+	var cosine = interpolate(-5,5,TimeSeconds + savedIndex + 0.5)
+	
 	if hovered:
-		sine = interpolate(-5,5,TimeSeconds + savedIndex) * 0.2
-		cosine = interpolate(-5,5,TimeSeconds + savedIndex) * 0.2
-	else:
-		sine = interpolate(-5,5,TimeSeconds + savedIndex) * 0.5
-		cosine = interpolate(-5,5,TimeSeconds + savedIndex +0.5) * 0.5
-
-	var offset = (size/2)- card_visual.get_local_mouse_position()
-	if hovered:
-		tiltX = offset.x  
-		tiltY = offset.y 
-		var lerpX = lerp(self.card_visual.material.get("shader_parameter/x_rot"), tiltX + sine, tiltSpeed  * delta)
-		var lerpY = lerp(self.card_visual.material.get("shader_parameter/y_rot"),tiltY + cosine, tiltSpeed  * delta)
+		var offset = (size/2)- card_visual.get_local_mouse_position()
+		var tiltX = offset.x  
+		var tiltY = offset.y 
+		var lerpX = lerp(self.card_visual.material.get("shader_parameter/x_rot"), tiltX + (sine * 0.2), tiltSpeed  * delta)
+		var lerpY = lerp(self.card_visual.material.get("shader_parameter/y_rot"),tiltY + (cosine * 0.2), tiltSpeed  * delta)
 	
 		self.card_visual.material.set("shader_parameter/y_rot",clampf(lerpX,-3,3))
 		self.card_visual.material.set("shader_parameter/x_rot",clampf(lerpY,-3,3))
 	else:
-		tiltX = 0
-		tiltY = 0
-		self.card_visual.material.set("shader_parameter/y_rot",sine)
-		self.card_visual.material.set("shader_parameter/x_rot",cosine)
+		self.card_visual.material.set("shader_parameter/y_rot",sine * 0.5)
+		self.card_visual.material.set("shader_parameter/x_rot",cosine * 0.5)
 
 
 func reset_rotation():

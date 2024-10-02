@@ -1,7 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq7jyexudk5vk"]
+[gd_scene load_steps=7 format=3 uid="uid://dq7jyexudk5vk"]
 
+[ext_resource type="Shader" path="res://scenes/background.gdshader" id="1_62khl"]
 [ext_resource type="PackedScene" uid="uid://d315lqvdadrat" path="res://scenes/card/card.tscn" id="2_hva06"]
 [ext_resource type="Script" path="res://scenes/hand_handler/hand_container.gd" id="2_mpdri"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cxvv8"]
+shader = ExtResource("1_62khl")
+shader_parameter/polar_coordinates = false
+shader_parameter/polar_center = Vector2(0.5, 0.5)
+shader_parameter/polar_zoom = 1.0
+shader_parameter/polar_repeat = 1.0
+shader_parameter/spin_rotation = null
+shader_parameter/spin_speed = 5.0
+shader_parameter/offset = Vector2(0.25, 0.25)
+shader_parameter/colour_1 = Color(0.0146028, 0.279187, 0, 1)
+shader_parameter/colour_2 = Color(0.0156863, 0.454902, 0, 1)
+shader_parameter/colour_3 = Color(0.0156863, 0.807843, 0, 1)
+shader_parameter/contrast = 2.0
+shader_parameter/spin_amount = 0.36
+shader_parameter/pixel_filter = 700.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b67eh"]
 bg_color = Color(0.164706, 0.541176, 0.427451, 1)
@@ -10,9 +27,12 @@ bg_color = Color(0.164706, 0.541176, 0.427451, 1)
 bg_color = Color(0, 0, 0, 0.419608)
 
 [node name="Main" type="Panel"]
+material = SubResource("ShaderMaterial_cxvv8")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1728.0
+offset_bottom = 972.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_b67eh")
@@ -59,6 +79,26 @@ size_flags_horizontal = 15
 size_flags_vertical = 13
 
 [node name="Card6" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+
+[node name="Card7" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+
+[node name="Card8" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+
+[node name="Card9" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
+layout_mode = 2
+size_flags_horizontal = 15
+size_flags_vertical = 13
+
+[node name="Card10" parent="PanelContainer/HBoxContainer" instance=ExtResource("2_hva06")]
 layout_mode = 2
 size_flags_horizontal = 15
 size_flags_vertical = 13
