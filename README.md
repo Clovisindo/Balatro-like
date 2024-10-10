@@ -80,7 +80,31 @@
 <!-- ABOUT THE PROJECT -->
 ## Sobre el proyecto
 
-Inicio este proyecto personal...
+Pequeña demo para replicar los efectos y feeling de interactuar con las cartas en Balatro.
+
+Basado en el proyecto de MixAndJam, quería intentar replicarlo en Godot para poner a prueba mi capacidad de replicar funcionalidades independientemente del motor.
+
+https://www.youtube.com/watch?v=I1dAZuWurw4
+
+Algunas cosas se quedaron en el camino, otras han sido mas sencillas, y algunas las cambiaría como las he planteado.
+
+Objeto carta interactuable, que responde a distintos eventos.
+
+Si haces un clic, cambia a estado “seleccionada”.
+Si lo mantienes, puedes arrastrar la carta y moverla a otra posición de la mano.
+Al soltarla , se adapta a la posición que le corresponde.
+Con el movimiento de arrastrar, la carta gira con la inercia del movimiento.
+Al pasar el ratón por encima, la carta se sacude para dar feedback de cual se está interactuando.
+Separación de la parte visual en otro objeto, para poder aplicar los efectos mejor sin afectar al objeto que recibe la lógica.
+Rotación de la carta en estado “reposo”, y cuando se pasa el ratón por encima, se ajusta a la posición del ratón.
+Gestion de la mano:
+
+ Añadiendo cartas se autoajustan al tamaño de la mano.
+Errores:
+
+Usar el elemento de godot para ahorrar el metodo de autoordenar la mano no es una buena decision, es mejor implementar algo propio, y además tendríamos mas opciones para colocar las cartas aplicando curvas al posicionamiento.
+Haber elegido elementos 2D, era más fácil simular el efecto 2D con cartas en 3D y no tendría que usar un shader para simular la rotación.
+Faltaría añadir los efectos de policromo y negativo, pero con ningún conocimiento en shaders no he sido capaz de replicarlo ;( .
 
 <!-- Como empezar -->
 ## Como empezar
